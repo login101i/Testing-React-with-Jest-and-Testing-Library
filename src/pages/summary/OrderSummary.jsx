@@ -22,10 +22,12 @@ const OrderSummary = ({ setOrderPhase }) => {
 	));
 
 	let displayToppings;
-	const hasToppings = orderDetails.toppings;
+	const hasToppings = orderDetails.toppings.size > 0;
+	
+
 	const toppingArray = Array.from(orderDetails.toppings.keys());
 	const toppingList = toppingArray.map((key) => <li key={key}>{key}</li>);
-
+	
 	if (hasToppings) {
 		displayToppings = (
 			<>
@@ -40,7 +42,7 @@ const OrderSummary = ({ setOrderPhase }) => {
 			<Col>
 				<Col>
 					<h2>Order Summary</h2>
-					<h3>Scoops {orderDetails.totals.scoops}</h3>
+					<h2>Scoops {orderDetails.totals.scoops}</h2>
 					{scoopList}
 
 					{displayToppings}

@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Row from 'react-bootstrap/Row'
+import Row from "react-bootstrap/Row";
 
 const ScoopOption = ({ name, imagePath, updateItemCount }) => {
+	const [invalid, setInvalid] = useState(false);
+
 	const handleChange = (event) => {
-		updateItemCount(name, event.target.value);
+		const inputValueFloat = parseFloat(event.target.value);
+		console.log(
+			"🚀 ~ file: ScoopOption.jsx ~ line 13 ~ handleChange ~ inputValueFloat",
+			inputValueFloat
+		);
+
+		const invalidInput =
+			inputValueFloat < 0 ||
+			inputValueFloat >= 10 ||
+			Math.floor(inputValueFloat) !== inputValueFloat;
+
+		setInvalid(invalidInput);
+
+		if (!invalidInput) updateItemCount(name, event.target.value);
 	};
+
 	return (
 		<Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: "center" }}>
 			<img
@@ -27,6 +43,7 @@ const ScoopOption = ({ name, imagePath, updateItemCount }) => {
 						type="number"
 						defaultValue={0}
 						onChange={handleChange}
+						isInvalid={invalid}
 					/>
 				</Col>
 			</Form.Group>

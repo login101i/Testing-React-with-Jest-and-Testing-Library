@@ -13,6 +13,7 @@ export default function Options({ optionType }) {
 	const [items, setItems] = useState([]);
 	const [error, setError] = useState(false);
 
+
 	const [orderDetails, updateItemCount] = useOrderDetails();
 
 	// optionType is 'scoops' or 'toppings'
@@ -27,7 +28,7 @@ export default function Options({ optionType }) {
 
 	if (error)
 		return (
-			<AlertBanner message="An unexpected error ocurred. Please try later again" />
+			<AlertBanner/>
 		);
 
 	// TODO: replace `null` with ToppingOption when available
@@ -46,13 +47,16 @@ export default function Options({ optionType }) {
 
 	const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
+	
 	return (
 		<>
 			<h2>{title}</h2>
-			<p>{formatCurrency(pricePerItem[optionType])} each</p>
-			<p>
+			<h4>{formatCurrency(pricePerItem[optionType])} each</h4>
+
+			<h4>
 				{title} total: {orderDetails.totals[optionType]}
-			</p>
+			</h4>
+
 			<Row>{optionItems}</Row>
 		</>
 	);

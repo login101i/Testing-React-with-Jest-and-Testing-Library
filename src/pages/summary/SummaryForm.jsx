@@ -11,6 +11,7 @@ const SummaryForm = ({ setOrderPhase }) => {
 		event.preventDefault();
 		setOrderPhase("confirmation");
 	};
+
 	return (
 		<>
 			<Form onSubmit={handleSubmit}>
@@ -18,7 +19,6 @@ const SummaryForm = ({ setOrderPhase }) => {
 					variant="primary"
 					type="submit"
 					disabled={!enabled}
-					type="submit"
 				>
 					Confirm order
 				</Button>

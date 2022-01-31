@@ -1,8 +1,8 @@
 import { render, screen } from '../../../test-utils/testing-libray-utils'
 import "@testing-library/jest-dom/extend-expect";
+import userEvent from '@testing-library/user-event'
 
 import Options from "../Options";
-import ToppingOptions from "../TooppingsOptions";
 
 test("displays image for each scoop option from server", async () => {
 	render(<Options optionType="scoops" />);
@@ -30,3 +30,19 @@ test("display image for each topping from server", async () => {
 		"Hot fudge topping"
 	]);
 });
+
+
+test("Dont update scoop count value when inputs are invalid", async () => {
+	render(<Options optionType="scoops" />);
+
+	// inputs invalid with negative number
+	const vanillaInput = await screen.findByRole("spinbutton", {
+		name: "Vanilla"
+	});
+	userEvent.clear(vanillaInput);
+	userEvent.type(vanillaInput, "-1");
+
+	const scoopTitle = screen.getByText("Scoops total: $0.00");
+	expect(scoopTitle).toBeInTheDocument();
+});
+
